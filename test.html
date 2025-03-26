@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Session Test</title>
+  </head>
+  <body>
+    <button id="loginBtn">Login</button>
+    <button id="profileBtn">Get Profile</button>
+    <div id="result"></div>
+
+    <script>
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", async () => {
+          try {
+            const response = await fetch("http://127.0.0.1:5000/login", {
+              method: "POST",
+              credentials: "include",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                username: "anjith test",
+                password: "1234",
+              }),
+            });
+            const data = await response.json();
+            document.getElementById("result").textContent =
+              JSON.stringify(data);
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+
+      document
+        .getElementById("profileBtn")
+        .addEventListener("click", async () => {
+          try {
+            const response = await fetch("http://127.0.0.1:5000/profile", {
+              method: "GET",
+              credentials: "include",
+            });
+            const data = await response.json();
+            document.getElementById("result").textContent =
+              JSON.stringify(data);
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+    </script>
+  </body>
+</html>
